@@ -1,0 +1,18 @@
+server:
+  port: 8083
+  log : log.log
+
+  devices:
+    - name: lokes_frame
+      type: inkpate_10
+
+  photos:
+    database   : ./photos.db
+    photo_cache: ./photos_cache
+    poll_period: 60
+    sources:
+      - type: icloud_shared_album
+        source_opts:
+          token: B0TGY8gBYTaBj0
+
+

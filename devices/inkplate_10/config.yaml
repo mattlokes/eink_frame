@@ -1,0 +1,5 @@
+device:
+  width     : 1200
+  height    : 825
+  bpp       : 8
+  greyscale : true
