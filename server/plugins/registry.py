@@ -1,2 +1,0 @@
-class PluginRegistryEntry():
-    pass

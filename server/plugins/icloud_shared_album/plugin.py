@@ -1,9 +1,6 @@
-from .plugins.registry  import PluginRegistryEntry
-from .plugins.base      import PluginPhotoSource, PluginException
+from plugins.base import PluginPhotoSource, PluginException
 
-from icloud_shared_album import IcloudSharedAlbum
-
-import pdb
+from .icloud_shared_album import IcloudSharedAlbum
 
 class PluginIcloudSharedAlbum(PluginPhotoSource):
     def __init__(self, opts={}):
@@ -16,14 +13,12 @@ class PluginIcloudSharedAlbum(PluginPhotoSource):
 
     @property
     def photos(self):
-         album = self.__icloud__.album
-         pdb.set_trace()
-
-
-class PluginRegistry(PluginRegistryEntry):
-    name  = "icloud_shared_album"
-    cls   = PluginIcloudSharedAlbum
-    type  = PluginPhotoSource
+         photos = {}
+         for id, photo in self.__icloud__.album.items():
+             hi_res = photo['derivatives'][str(max([int(d) for d in photo['derivatives'].keys()]))]
+             photos[id] = { k:v for k,v in hi_res.items() if k in ['url', 'width', 'height'] }
+             photos[id]['landscape'] = photos[id]['width'] > photos[id]['height']
+         return photos
 
 if __name__ == "__main__":
     import sys
